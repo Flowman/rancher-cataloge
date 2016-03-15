@@ -1,3 +1,10 @@
+pxc-clustercheck:
+  image: flowman/percona-xtradb-cluster-clustercheck
+  net: "container:pxc"
+  labels:
+    io.rancher.container.hostname_override: container_name
+  volumes_from:
+    - 'pxc-server'    
 pxc-server:
   image: flowman/percona-xtradb-cluster
   net: "container:pxc"
@@ -7,21 +14,11 @@ pxc-server:
   labels:
     io.rancher.container.hostname_override: container_name
   volumes_from:
-    - 'pxc-data'    
+    - 'pxc'    
   entrypoint: bash -x /opt/rancher/start_pxc
-pxc-data:
-  image: flowman/percona-xtradb-cluster
-  net: none
-  environment:
-    MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-  command: /bin/true
-  labels:
-    io.rancher.container.start_once: true  
 pxc:
   image: flowman/percona-xtradb-cluster-confd
   labels:
-    io.rancher.sidekicks: pxc-data,pxc-server
+    io.rancher.sidekicks: pxc-clustercheck,pxc-server
     io.rancher.container.hostname_override: container_name
     io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
-  volumes_from:
-    - 'pxc-data'
