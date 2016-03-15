@@ -34,7 +34,7 @@
 pxc:
   scale: 1
   health_check:
-    port: 9200
+    port: 8000
     interval: 2000
     unhealthy_threshold: 3
     strategy: none
