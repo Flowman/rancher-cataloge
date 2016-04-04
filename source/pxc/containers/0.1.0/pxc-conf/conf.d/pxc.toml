@@ -1,6 +1,0 @@
-[template]
-src="pxc.cnf.tmpl"
-dest="/etc/mysql/conf.d/001-pxc.cnf"
-keys = [
-  "/self"
-]
