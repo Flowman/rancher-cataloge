@@ -3,8 +3,10 @@ pxc-clustercheck:
   net: "container:pxc"
   labels:
     io.rancher.container.hostname_override: container_name
+  volumes_from:
+    - 'pxc-data'    
 pxc-server:
-  image: flowman/percona-xtradb-cluster:5.6.28
+  image: flowman/percona-xtradb-cluster:5.6.28-rancher1
   net: "container:pxc"
   environment:
     MYSQL_ROOT_PASSWORD: "${mysql_root_password}"
@@ -15,7 +17,7 @@ pxc-server:
     - 'pxc-data'
   entrypoint: bash -x /opt/rancher/start_pxc
 pxc-data:
-  image: flowman/percona-xtradb-cluster:5.6.28
+  image: flowman/percona-xtradb-cluster:5.6.28-rancher1
   net: none
   environment:
     MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
@@ -23,7 +25,7 @@ pxc-data:
   labels:
     io.rancher.container.start_once: true
 pxc:
-  image: flowman/percona-xtradb-cluster-confd:v0.1.0
+  image: flowman/percona-xtradb-cluster-confd:v0.2.0
   labels:
     io.rancher.sidekicks: pxc-clustercheck,pxc-server,pxc-data
     io.rancher.container.hostname_override: container_name

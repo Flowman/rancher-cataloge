@@ -32,7 +32,7 @@
       label: "MySQL DB Password"
       description: "Password for the MySQL user of the created database"
 pxc:
-  scale: 1
+  scale: 3
   health_check:
     port: 8000
     interval: 2000
@@ -43,7 +43,7 @@ pxc:
     response_timeout: 2000  
   metadata:
     mysqld: |
-      innodb_buffer_pool_size=600M
+      innodb_buffer_pool_size=512M
       innodb_doublewrite=0
       innodb_flush_log_at_trx_commit=0
       innodb_file_per_table=1
