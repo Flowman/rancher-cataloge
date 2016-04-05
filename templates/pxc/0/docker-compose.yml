@@ -11,6 +11,9 @@ pxc-server:
   environment:
     MYSQL_ROOT_PASSWORD: "${mysql_root_password}"
     PXC_SST_PASSWORD: "${pxc_sst_password}"
+    MYSQL_DATABASE: "${mysql_database}"
+    MYSQL_USER: "${mysql_user}"
+    MYSQL_PASSWORD: "${mysql_password}"    
   labels:
     io.rancher.container.hostname_override: container_name
   volumes_from:
@@ -21,9 +24,13 @@ pxc-data:
   net: none
   environment:
     MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  volumes:
+    - /var/lib/mysql
+    - /etc/mysql/conf.d
+    - /docker-entrypoint-initdb.d
   command: /bin/true
   labels:
-    io.rancher.container.start_once: true
+    io.rancher.container.start_once: true    
 pxc:
   image: flowman/percona-xtradb-cluster-confd:v0.2.0
   labels:
