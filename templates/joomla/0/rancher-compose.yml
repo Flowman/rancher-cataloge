@@ -1,0 +1,15 @@
+.catalog:
+  name: "Joomla"
+  version: 3.5.1-rancher1
+  description: |
+    Joomla! is an award-winning content management system (CMS)
+  questions:
+    - variable: "database_link"
+      description: |
+        stack/service link or external service link to database.
+      label: "Database stack/service"
+      default: ""
+      required: true
+      type: "service"
+nginx:
+  scale: 1
