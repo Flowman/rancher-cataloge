@@ -23,7 +23,7 @@ nginx:
     - ${database_link}:mysql
 
 lb:
-  expose:
+  ports:
   - 80:80/tcp
   tty: true
   image: rancher/load-balancer-service
