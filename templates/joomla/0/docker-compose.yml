@@ -21,3 +21,12 @@ nginx:
     - 'www-data'
   external_links:
     - ${database_link}:mysql
+
+lb:
+  expose:
+  - 80:80/tcp
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+  - nginx:nginx
+  stdin_open: true

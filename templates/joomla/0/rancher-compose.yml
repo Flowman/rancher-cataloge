@@ -13,3 +13,5 @@
       type: "service"
 nginx:
   scale: 1
+lb:
+  scale: 1
