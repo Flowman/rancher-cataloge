@@ -1,5 +1,5 @@
 www-data:
-  image: flowman/www-data:joomla-3.5.1
+  image: flowman/joomla:3.5.1
   net: none
   command: /bin/true
   labels:
