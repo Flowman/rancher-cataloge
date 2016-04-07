@@ -11,6 +11,22 @@
       default: ""
       required: true
       type: "service"
+    - variable: "volume_data"
+      description: "Volume to share or save Joomla! data"
+      label: "Data volume:"
+      required: true
+      default: "/var/lib/docker/joomla"
+      type: "string"
+    - variable: "volume_driver" 
+      label: "Driver volume:"
+      description: |
+        Choose the volume driver to use.
+      default: local
+      required: true
+      type: enum
+      options:
+        - local
+        - convoy-gluster      
 nginx:
   scale: 1
 lb:

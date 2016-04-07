@@ -4,6 +4,9 @@ www-data:
   command: /bin/true
   labels:
     io.rancher.container.start_once: true
+  volumes:
+    - ${volume_data}:/usr/share/nginx/html
+  volume_driver: ${volume_driver}    
 php-fpm:
   image: flowman/php-fpm:7.0.5-alpine
   net: "container:nginx"
@@ -21,7 +24,6 @@ nginx:
     - 'www-data'
   external_links:
     - ${database_link}:mysql
-
 lb:
   ports:
   - 80:80/tcp
