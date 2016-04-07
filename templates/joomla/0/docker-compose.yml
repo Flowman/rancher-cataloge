@@ -5,7 +5,7 @@ www-data:
   labels:
     io.rancher.container.start_once: true
   volumes:
-    - ${volume_data}:/usr/share/nginx/html
+    - ${volume_data}/usr/share/nginx/html
   volume_driver: ${volume_driver}    
 php-fpm:
   image: flowman/php-fpm:7.0.5-alpine

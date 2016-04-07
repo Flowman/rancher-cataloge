@@ -12,10 +12,9 @@
       required: true
       type: "service"
     - variable: "volume_data"
-      description: "Volume to share or save Joomla! data"
+      description: "Volume to share or save Joomla! data (must end with a colon ':' if specified)."
       label: "Data volume:"
-      required: true
-      default: "/var/lib/docker/joomla"
+      default: ""
       type: "string"
     - variable: "volume_driver" 
       label: "Driver volume:"
