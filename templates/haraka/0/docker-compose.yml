@@ -5,8 +5,8 @@ haraka:
   - 465:465/tcp
   - 143:143/tcp
   - 993:993/tcp
+  hostname: ${hostname}
   environment:
-    HOSTNAME: ${hostname}
     MYSQL_HOST: mysql
     MYSQL_DATABASE: "${mysql_database}"
     MYSQL_USER: "${mysql_user}"
@@ -34,8 +34,8 @@ clamav:
   image: flowman/clamav
   net: container:haraka
 dovecot:
+  hostname: ${hostname}  
   environment:
-    HOSTNAME: ${hostname}
     MYSQL_HOST: mysql
     MYSQL_DATABASE: "${mysql_database}"
     MYSQL_USER: "${mysql_user}"
