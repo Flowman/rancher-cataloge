@@ -1,0 +1,5 @@
+name: "Haraka"
+description: |
+  A modern, high performance, flexible SMTP server
+version: 2.7.3-rancher1
+category: CMS
