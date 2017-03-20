@@ -14,7 +14,7 @@ pxc:
   volumes_from:
     - 'pxc-data'
   external_links:
-    - "${etcd_service}:etcd"
+    - ${etcd_service}:etcd
 pxc-data:
   image: flowman/percona-xtradb-cluster:5.7.16-alpine1
   net: none
