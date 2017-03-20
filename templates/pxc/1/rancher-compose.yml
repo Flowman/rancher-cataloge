@@ -6,46 +6,38 @@
   questions:
     - variable: "etcd_service"
       label: "Etcd"
-      description: |
-        Service link to Etcd. This will be mapped to the container as 'etcd'
+      description: Service link to Etcd. This will be mapped to the container as 'etcd'
       type: "service"
       required: true
     - variable: "cluster_name"
       type: string
       required: true
       label: "Cluster Name"
-      description:  |
-        Cluster name to register in Etcd
+      description: Cluster name to register in Etcd
     - variable: "mysql_root_password"
       type: string
       required: true
       label: "MySQL Root Password"
-      description:  |
-        Password given to the root mysql user
+      description: Password given to the root mysql user
       default: "password"
     - variable: "pxc_sst_password"
       type: string
       required: true
       label: "PXC SST Password"
-      description:  |
-        Password given to the sst mysql user
+      description: Password given to the sst mysql user
       default: "password"
     - variable: "mysql_database"
       type: string
       required: false
       label: "MySQL Database Name"
-      description:  |
-        MySQL database to create
+      description: MySQL database to create
     - variable: "mysql_user"
       type: string
       required: false
-      description:  |
-        MySQL user for the created database
+      description: MySQL user for the created database
       label: "MySQL DB User"
     - variable: "mysql_password"
       type: string
       required: false
       label: "MySQL DB Password"
-      description:  |
-        Password for the MySQL user of the created database
-
+      description: Password for the MySQL user of the created database
