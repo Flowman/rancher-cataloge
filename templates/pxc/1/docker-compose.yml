@@ -28,3 +28,10 @@ pxc-data:
   command: /bin/true
   labels:
     io.rancher.container.start_once: true
+pxc-clustercheck:
+  image: flowman/percona-xtradb-cluster-clustercheck:v2.0
+  net: "container:pxc"
+  labels:
+    io.rancher.container.hostname_override: container_name
+  volumes_from:
+    - 'pxc-data'

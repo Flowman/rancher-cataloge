@@ -13,7 +13,8 @@
       type: string
       required: true
       label: "Cluster Name"
-      description: Cluster name to register in Etcd
+      description: Cluster name for WSREP and Etcd
+      default: "pxc-cluster"
     - variable: "mysql_root_password"
       type: string
       required: true
@@ -25,7 +26,7 @@
       required: true
       label: "PXC SST Password"
       description: Password given to the sst mysql user
-      default: "password"
+      default: "s3cretPass"
     - variable: "mysql_database"
       type: string
       required: false
