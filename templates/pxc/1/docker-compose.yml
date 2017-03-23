@@ -7,6 +7,7 @@ pxc:
     MYSQL_USER: "${mysql_user}"
     MYSQL_PASSWORD: "${mysql_password}"
     CLUSTER_NAME: "${cluster_name}"
+    DISCOVERY_SERVICE: true
   labels:
     io.rancher.sidekicks: pxc-data
     io.rancher.container.hostname_override: container_name
