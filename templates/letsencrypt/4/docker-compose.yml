@@ -1,0 +1,44 @@
+version: '2'
+services:
+  letsencrypt:
+    image: janeczku/rancher-letsencrypt:v0.4.0
+    environment:
+      EULA: ${EULA}
+      API_VERSION: ${API_VERSION}
+      CERT_NAME: ${CERT_NAME}
+      EMAIL: ${EMAIL}
+      DOMAINS: ${DOMAINS}
+      PUBLIC_KEY_TYPE: ${PUBLIC_KEY_TYPE}
+      RENEWAL_TIME: ${RENEWAL_TIME}
+      PROVIDER: ${PROVIDER}
+      AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
+      AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
+      AZURE_SUBSCRIPTION_ID: ${AZURE_SUBSCRIPTION_ID}
+      AZURE_TENANT_ID: ${AZURE_TENANT_ID}
+      AZURE_RESOURCE_GROUP: ${AZURE_RESOURCE_GROUP}
+      AWS_ACCESS_KEY: ${AWS_ACCESS_KEY}
+      AWS_SECRET_KEY: ${AWS_SECRET_KEY}
+      CLOUDFLARE_EMAIL: ${CLOUDFLARE_EMAIL}
+      CLOUDFLARE_KEY: ${CLOUDFLARE_KEY}
+      DNSIMPLE_EMAIL: ${DNSIMPLE_EMAIL}
+      DNSIMPLE_KEY: ${DNSIMPLE_KEY}
+      DO_ACCESS_TOKEN: ${DO_ACCESS_TOKEN}
+      DYN_CUSTOMER_NAME: ${DYN_CUSTOMER_NAME}
+      DYN_USER_NAME: ${DYN_USER_NAME}
+      DYN_PASSWORD: ${DYN_PASSWORD}
+      GANDI_API_KEY: ${GANDI_API_KEY}
+      NS1_API_KEY: ${NS1_API_KEY}
+      OVH_APPLICATION_KEY: ${OVH_APPLICATION_KEY}
+      OVH_APPLICATION_SECRET: ${OVH_APPLICATION_SECRET}
+      OVH_CONSUMER_KEY: ${OVH_CONSUMER_KEY}
+      VULTR_API_KEY: ${VULTR_API_KEY}
+    volumes:
+      - lets-encrypt:/etc/letsencrypt
+    labels:
+      io.rancher.container.create_agent: 'true'
+      io.rancher.container.agent.role: 'environment'
+volumes:
+  lets-encrypt:
+    driver: ${STORAGE_DRIVER}
+    driver_opts: 
+      size: ${STORAGE_DRIVER_EBS_VOL_SIZE}
