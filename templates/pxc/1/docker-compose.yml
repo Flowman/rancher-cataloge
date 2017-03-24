@@ -9,7 +9,7 @@ pxc:
     CLUSTER_NAME: "${cluster_name}"
     DISCOVERY_SERVICE: true
   labels:
-    io.rancher.sidekicks: pxc-data
+    io.rancher.sidekicks: pxc-data,pxc-clustercheck
     io.rancher.container.hostname_override: container_name
     io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
   volumes_from:
