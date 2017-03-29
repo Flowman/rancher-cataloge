@@ -14,7 +14,6 @@
       required: true
       label: "Cluster Name"
       description: Cluster name for WSREP and Etcd
-      default: "pxc-cluster"
     - variable: "mysql_root_password"
       type: string
       required: true
@@ -42,6 +41,11 @@
       required: false
       label: "MySQL DB Password"
       description: Password for the MySQL user of the created database
+    - variable: "volume_data"
+      description: "Volume to save mysql data (must end with a colon ':' if specified)."
+      label: "Data volume:"
+      default: ""
+      type: "string"      
 pxc:
   health_check:
     port: 8000
