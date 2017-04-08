@@ -17,6 +17,8 @@ pxc:
   external_links:
     - ${etcd_service}:etcd
   entrypoint: /opt/rancher/start_etcd
+  dns_search:
+  - rancher.internal
 pxc-data:
   image: flowman/percona-xtradb-cluster:5.7.17-alpine1
   net: none
