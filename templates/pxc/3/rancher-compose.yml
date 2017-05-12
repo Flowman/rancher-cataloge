@@ -1,0 +1,57 @@
+.catalog:
+  name: "Percona XtraDB Cluster"
+  version: 5.7.17-29.20-rancher1
+  description: |
+    Percona XtraDB Cluster 5.7.17
+  questions:
+    - variable: "etcd_service"
+      label: "Etcd"
+      description: Service link to Etcd. This will be mapped to the container as 'etcd'
+      type: "service"
+      required: true
+    - variable: "cluster_name"
+      type: string
+      required: true
+      label: "Cluster Name"
+      description: Cluster name for WSREP and Etcd
+    - variable: "mysql_root_password"
+      type: string
+      required: true
+      label: "MySQL Root Password"
+      description: Password given to the root mysql user
+      default: "password"
+    - variable: "pxc_sst_password"
+      type: string
+      required: true
+      label: "PXC SST Password"
+      description: Password given to the sst mysql user
+      default: "s3cretPass"
+    - variable: "mysql_database"
+      type: string
+      required: false
+      label: "MySQL Database Name"
+      description: MySQL database to create
+    - variable: "mysql_user"
+      type: string
+      required: false
+      description: MySQL user for the created database
+      label: "MySQL DB User"
+    - variable: "mysql_password"
+      type: string
+      required: false
+      label: "MySQL DB Password"
+      description: Password for the MySQL user of the created database
+    - variable: "volume_data"
+      description: "Volume to save mysql data (must end with a colon ':' if specified)."
+      label: "Data volume:"
+      default: ""
+      type: "string"
+pxc:
+  health_check:
+    port: 8000
+    interval: 2000
+    unhealthy_threshold: 3
+    strategy: none
+    request_line: GET / HTTP/1.1
+    healthy_threshold: 2
+    response_timeout: 2000
