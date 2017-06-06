@@ -1,8 +1,8 @@
 .catalog:
   name: Let's Encrypt
-  version: 0.4.1
+  version: 0.5.0
   description: Trusted SSL certificates at zero cost
-  minimum_rancher_version: v1.2.0-pre4-rc1
+  minimum_rancher_version: v1.5.0
   questions:
     - variable: EULA
       label: I Agree to the Let's Encrypt TOS
@@ -16,8 +16,8 @@
     - variable: API_VERSION
       label: Let's Encrypt API Version
       description: |
-        Select the API version used for issuing the certificate.
-        Use `Sandbox` for testing only.
+        Select the Let's Encrypt API endpoint used for issuing the certificate.
+        Use `Sandbox` for testing your configuration.
       required: true
       type: enum
       default: Production
@@ -64,38 +64,79 @@
       default: 12
       required: true
       type: int
-    - variable: STORAGE_DRIVER
-      label: Volume Storage Driver (Optional)
+    - variable: RENEWAL_PERIOD_DAYS
+      label: Renewal Grace Period
       description: |
-        If you enter the name of an existing storage driver (see `Infrastructure -> Storage`) then account data,
-        certificates and private keys will be stored in a stack scoped storage volume named `lets-encrypt`.
+        Number of days before expiration the certificate should be renewed / become eligible for renewal.
+      default: 20
+      required: true
+      type: int
+    - variable: RUN_ONCE
+      label: Run Once
+      description: |
+        Stop the service after creating or renewing the certificate instead of continously running and managing renewal.
+      required: true
+      type: boolean
+      default: false
+    - variable: DNS_RESOLVERS
+      label: DNS Resolvers
+      description: |
+        Comma delimited list of DNS resolvers used to check propagation of ACME TXT record.
+        If empty the DNS resolvers configured in your hosts /etc/resolv.conf are used.
+      required: false
+      default: "8.8.8.8:53,8.8.4.4:53"
+      type: string
+    - variable: VOLUME_NAME
+      label: Volume Name (Optional)
+      description: |
+        To store the account data, certificates and private keys in a volume, enter the volume name that should be used.
+        By default this will be a (host scoped) named Docker volume. See "Persistent Storage Driver" for other options.
       required: false
       type: string
-    - variable: STORAGE_DRIVER_EBS_VOL_SIZE
-      label: EBS Volume Size in GiB
+    - variable: STORAGE_DRIVER
+      label: Persistent Storage Driver (Optional)
       description: |
-        If you are using the `rancher-ebs` storage driver you need to specify the size of the volume to create (min: 1 GiB).
+        To use a stack scoped volume backed by a persistent storage service, enter the name
+        of an existing storage driver (see `Infrastructure -> Storage`). This also requires "Volume Name" to be set.
       required: false
-      type: int
-    - variable: PROVIDER
-      label: Domain Validation Method
+      type: string
+    - variable: STORAGE_DRIVER_OPT
+      label: Storage Driver Option (Optional)
       description: |
-        Select a DNS provider to use for domain validation. Use 'HTTP' if DNS for the domain is not hosted
-        with any of the available providers.
+        Specify a single "driver_opts" key/value pair in the format "optionName: optionValue".
+        E.g. for the `rancher-ebs` driver you should specify the required 'size' option like this: "size: 1".
+      required: false
+      type: string
+    - variable: PROVIDER
+      label: Domain Validation Provider
+      description: Select a DNS provider to use for domain validation. Use 'HTTP' if your domain is hosted elsewhere.
       required: true
       type: enum
       options:
+        - Aurora
         - Azure
         - CloudFlare
         - DigitalOcean
         - DNSimple
         - Dyn
         - Gandi
-        - HTTP
         - NS1
         - Ovh
         - Route53
         - Vultr
+        - HTTP
+    - variable: AURORA_USER_ID
+      label: Aurora User ID
+      type: string
+      required: false
+    - variable: AURORA_KEY
+      label: Aurora Key
+      type: string
+      required: false
+    - variable: AURORA_ENDPOINT
+      label: Aurora Endpoint URL (Optional)
+      type: string
+      required: false
     - variable: AWS_ACCESS_KEY
       label: AWS Route53 Access Key Id
       description: Enter the Access Key Id for your AWS account.
@@ -108,27 +149,22 @@
       required: false
     - variable: AZURE_CLIENT_ID
       label: Azure Client ID
-      description: Enter the Client ID from your Azure account.
       type: string
       required: false
     - variable: AZURE_CLIENT_SECRET
       label: Azure Client Secret
-      description: Enter the Client Secret from your Azure account.
       type: string
       required: false
     - variable: AZURE_SUBSCRIPTION_ID
       label: Azure Subscription ID
-      description: Enter the Subscription ID from your Azure account.
       type: string
       required: false
     - variable: AZURE_TENANT_ID
       label: Azure Tenant ID
-      description: Enter the Tenant ID from your Azure account.
       type: string
       required: false
     - variable: AZURE_RESOURCE_GROUP
       label: Azure Resource Group
-      description: Enter the Resource Group from your Azure account.
       type: string
       required: false
     - variable: CLOUDFLARE_EMAIL
@@ -178,7 +214,6 @@
       required: false
     - variable: NS1_API_KEY
       label: NS1 API Key
-      description: Enter your NS1 API key.
       type: string
       required: false
     - variable: OVH_APPLICATION_KEY
